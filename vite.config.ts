@@ -21,6 +21,7 @@ export default defineConfig({
       formats: ['es'],
       fileName: 'index'
     },
+    cssCodeSplit: false,
     rollupOptions: {
       external: ['react', 'react-dom', 'react/jsx-runtime'],
       output: {
