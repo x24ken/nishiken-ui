@@ -1,4 +1,4 @@
-# @nishiken/ui-mcp-server
+# nishiken-ui-mcp-server
 
 MCP (Model Context Protocol) server for nishiken-ui design system. This enables Claude Code to access nishiken-ui components, design tokens, and integration tools directly.
 
@@ -7,7 +7,7 @@ MCP (Model Context Protocol) server for nishiken-ui design system. This enables 
 ### Global Installation (Recommended for Teams)
 
 ```bash
-npm install -g @nishiken/ui-mcp-server
+npm install -g nishiken-ui-mcp-server
 ```
 
 ### Local Development Installation
@@ -42,7 +42,7 @@ Add the following to your Claude Code MCP settings:
   "mcpServers": {
     "nishiken-ui": {
       "command": "npx",
-      "args": ["@nishiken/ui-mcp-server"]
+      "args": ["nishiken-ui-mcp-server"]
     }
   }
 }
@@ -66,7 +66,7 @@ Add the following to your Claude Code MCP settings:
 
 1. **Install globally** on each team member's machine:
    ```bash
-   npm install -g @nishiken/ui-mcp-server
+   npm install -g nishiken-ui-mcp-server
    ```
 
 2. **Configure Claude Code** with the global command setting shown above.
@@ -75,7 +75,7 @@ Add the following to your Claude Code MCP settings:
 
 4. **Automatic updates**: When nishiken-ui is updated, team members can run:
    ```bash
-   npm update -g @nishiken/ui-mcp-server
+   npm update -g nishiken-ui-mcp-server
    ```
 
 ## Available Tools
@@ -151,10 +151,10 @@ Integrate components into a project.
 1. **Verify Installation**
    ```bash
    # Check if globally installed
-   npm list -g @nishiken/ui-mcp-server
+   npm list -g nishiken-ui-mcp-server
    
    # Reinstall if needed
-   npm install -g @nishiken/ui-mcp-server
+   npm install -g nishiken-ui-mcp-server
    ```
 
 2. **Check Command**

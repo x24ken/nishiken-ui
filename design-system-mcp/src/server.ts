@@ -20,6 +20,9 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 // デザインシステムのベースパス (NPMパッケージから取得)
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url)
+
 function getDesignSystemPath(): string {
   try {
     // グローバルインストール時はnishiken-uiパッケージのパスを取得

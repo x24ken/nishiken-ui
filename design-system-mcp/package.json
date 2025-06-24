@@ -1,6 +1,6 @@
 {
-  "name": "@nishiken/ui-mcp-server",
-  "version": "0.1.0",
+  "name": "nishiken-ui-mcp-server",
+  "version": "0.1.1",
   "description": "MCP Server for nishiken-ui design system - Global installation for team sharing",
   "type": "module",
   "main": "dist/server.js",

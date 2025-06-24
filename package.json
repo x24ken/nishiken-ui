@@ -11,10 +11,13 @@
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
-    "./styles.css": "./dist/index.css"
+    "./styles.css": "./dist/index.css",
+    "./package.json": "./package.json",
+    "./src/*": "./src/*"
   },
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "workspaces": [
     ".",
