@@ -19,8 +19,19 @@ import { IntegrationManager } from './tools/integration-tools.js'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-// デザインシステムのベースパス
-const DESIGN_SYSTEM_PATH = path.resolve(__dirname, '../../src')
+// デザインシステムのベースパス (NPMパッケージから取得)
+function getDesignSystemPath(): string {
+  try {
+    // グローバルインストール時はnishiken-uiパッケージのパスを取得
+    const nishikenUiPath = require.resolve('nishiken-ui/package.json')
+    return path.dirname(nishikenUiPath)
+  } catch (error) {
+    // 開発時のフォールバック
+    return path.resolve(__dirname, '../../src')
+  }
+}
+
+const DESIGN_SYSTEM_PATH = getDesignSystemPath()
 
 class NishikenUIServer {
   private server: Server

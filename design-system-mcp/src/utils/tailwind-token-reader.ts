@@ -32,7 +32,12 @@ export class TailwindTokenReader {
   private readonly basePath: string
 
   constructor(designSystemPath: string) {
-    this.basePath = designSystemPath
+    // NPMパッケージの場合、srcディレクトリを参照
+    if (designSystemPath.includes('node_modules/nishiken-ui')) {
+      this.basePath = path.resolve(designSystemPath, 'src')
+    } else {
+      this.basePath = designSystemPath
+    }
   }
 
   async getDesignTokens(category?: string): Promise<DesignTokenCollection> {

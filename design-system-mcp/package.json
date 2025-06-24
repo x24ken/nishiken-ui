@@ -1,27 +1,46 @@
 {
-  "name": "nishiken-ui-mcp",
+  "name": "@nishiken/ui-mcp-server",
   "version": "0.1.0",
-  "description": "MCP Server for nishiken-ui design system",
+  "description": "MCP Server for nishiken-ui design system - Global installation for team sharing",
   "type": "module",
   "main": "dist/server.js",
+  "bin": {
+    "nishiken-ui-mcp": "./dist/server.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
     "dev": "tsx watch src/server.ts",
     "typecheck": "tsc --noEmit",
-    "test": "node simple-test.js"
+    "test": "node simple-test.js",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "mcp",
     "design-system",
     "nishiken-ui",
     "react",
-    "tailwindcss"
+    "tailwindcss",
+    "model-context-protocol"
   ],
   "author": "nishiken",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/x24ken/nishiken-ui.git",
+    "directory": "design-system-mcp"
+  },
+  "homepage": "https://github.com/x24ken/nishiken-ui/tree/main/design-system-mcp",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.13.1"
+    "@modelcontextprotocol/sdk": "^1.13.1",
+    "nishiken-ui": "^0.0.1"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
