@@ -16,6 +16,10 @@
   "files": [
     "dist"
   ],
+  "workspaces": [
+    ".",
+    "design-system-mcp"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -24,7 +28,10 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "mcp:build": "npm run build --workspace=nishiken-ui-mcp",
+    "mcp:dev": "npm run dev --workspace=nishiken-ui-mcp",
+    "mcp:start": "npm run start --workspace=nishiken-ui-mcp"
   },
   "peerDependencies": {
     "react": "^18.0.0",

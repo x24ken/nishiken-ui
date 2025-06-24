@@ -1,0 +1,31 @@
+{
+  "name": "nishiken-ui-mcp",
+  "version": "0.1.0",
+  "description": "MCP Server for nishiken-ui design system",
+  "type": "module",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "tsx watch src/server.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "node simple-test.js"
+  },
+  "keywords": [
+    "mcp",
+    "design-system",
+    "nishiken-ui",
+    "react",
+    "tailwindcss"
+  ],
+  "author": "nishiken",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.13.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.6.0"
+  }
+}
