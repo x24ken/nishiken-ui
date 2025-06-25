@@ -1,6 +1,6 @@
 {
   "name": "nishiken-ui-mcp-server",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "MCP Server for nishiken-ui design system - Global installation for team sharing",
   "type": "module",
   "main": "dist/server.js",
@@ -9,6 +9,7 @@
   },
   "files": [
     "dist",
+    "src",
     "README.md"
   ],
   "scripts": {
