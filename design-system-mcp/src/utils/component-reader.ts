@@ -31,12 +31,14 @@ export class ComponentReader {
   private readonly basePath: string
 
   constructor(designSystemPath: string) {
+    console.log('Debug - ComponentReader input path:', designSystemPath)
     // NPMパッケージの場合、srcディレクトリを参照
     if (designSystemPath.includes('node_modules/nishiken-ui')) {
       this.basePath = path.resolve(designSystemPath, 'src', 'components')
     } else {
       this.basePath = path.resolve(designSystemPath, 'components')
     }
+    console.log('Debug - ComponentReader final basePath:', this.basePath)
   }
 
   async getComponentList(): Promise<string[]> {

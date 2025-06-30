@@ -25,12 +25,18 @@ const require = createRequire(import.meta.url)
 
 function getDesignSystemPath(): string {
   try {
-    // グローバルインストール時はnishiken-uiパッケージのパスを取得
-    const nishikenUiPath = require.resolve('nishiken-ui/package.json')
-    return path.dirname(nishikenUiPath)
+    // package.jsonを直接解決してパッケージルートを取得
+    const packageJsonPath = require.resolve('nishiken-ui/package.json')
+    const basePath = path.dirname(packageJsonPath)
+    console.log('Debug - nishiken-ui package.json path:', packageJsonPath)
+    console.log('Debug - nishiken-ui root path:', basePath)
+    return basePath
   } catch (error) {
+    console.error('nishiken-ui パッケージが見つかりません:', error instanceof Error ? error.message : String(error))
     // 開発時のフォールバック
-    return path.resolve(__dirname, '../../src')
+    const fallbackPath = path.resolve(__dirname, '../../src')
+    console.log('Debug - using fallback path:', fallbackPath)
+    return fallbackPath
   }
 }
 
