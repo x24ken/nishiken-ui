@@ -1,6 +1,6 @@
 {
   "name": "nishiken-ui-mcp-server",
-  "version": "0.1.5",
+  "version": "1.0.0",
   "description": "MCP Server for nishiken-ui design system - Global installation for team sharing",
   "type": "module",
   "main": "dist/server.js",
@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.13.1",
-    "nishiken-ui": "^0.0.5"
+    "nishiken-ui": "^1.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
