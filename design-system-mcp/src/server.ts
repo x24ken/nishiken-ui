@@ -19,8 +19,28 @@ import { IntegrationManager } from './tools/integration-tools.js'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-// デザインシステムのベースパス
-const DESIGN_SYSTEM_PATH = path.resolve(__dirname, '../../src')
+// デザインシステムのベースパス (NPMパッケージから取得)
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url)
+
+function getDesignSystemPath(): string {
+  try {
+    // package.jsonを直接解決してパッケージルートを取得
+    const packageJsonPath = require.resolve('nishiken-ui/package.json')
+    const basePath = path.dirname(packageJsonPath)
+    console.log('Debug - nishiken-ui package.json path:', packageJsonPath)
+    console.log('Debug - nishiken-ui root path:', basePath)
+    return basePath
+  } catch (error) {
+    console.error('nishiken-ui パッケージが見つかりません:', error instanceof Error ? error.message : String(error))
+    // 開発時のフォールバック
+    const fallbackPath = path.resolve(__dirname, '../../src')
+    console.log('Debug - using fallback path:', fallbackPath)
+    return fallbackPath
+  }
+}
+
+const DESIGN_SYSTEM_PATH = getDesignSystemPath()
 
 class NishikenUIServer {
   private server: Server

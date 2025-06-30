@@ -1,46 +1,54 @@
-# nishiken-ui MCP Server
+# nishiken-ui-mcp-server
 
-nishiken-ui デザインシステム用のModel Context Protocol (MCP) サーバーです。CursorやClaude Desktopで、デザインシステムのコンポーネントやデザイントークンに直接アクセスできます。
+MCP (Model Context Protocol) server for nishiken-ui design system. This enables Claude Code to access nishiken-ui components, design tokens, and integration tools directly.
 
-## 概要
+## Installation
 
-このMCPサーバーは以下の機能を提供します：
-
-- **コンポーネント検索** - デザインシステムからコンポーネントを検索
-- **コンポーネントコード取得** - 完全なコンポーネントコードの取得
-- **デザイントークン取得** - カラー、スペーシングなどのデザイントークン
-- **テーマ設定適用** - プロジェクトへのテーマ設定の自動適用
-- **コンポーネント統合** - プロジェクトへのコンポーネント統合
-
-## セットアップ
-
-### 1. MCPサーバーのビルド
+### Global Installation (Recommended for Teams)
 
 ```bash
-cd design-system-mcp
+npm install -g nishiken-ui-mcp-server
+```
+
+### Local Development Installation
+
+```bash
+git clone https://github.com/x24ken/nishiken-ui.git
+cd nishiken-ui/design-system-mcp
 npm install
 npm run build
 ```
 
-### 2. 動作確認
+## Configuration
 
-```bash
-npm run test
+Add the following to your Claude Code MCP settings:
+
+### Option 1: Using Global Command (Recommended)
+
+```json
+{
+  "mcpServers": {
+    "nishiken-ui": {
+      "command": "nishiken-ui-mcp"
+    }
+  }
+}
 ```
 
-正常に動作すると以下のような出力が表示されます：
+### Option 2: Using npx (Alternative)
+
+```json
+{
+  "mcpServers": {
+    "nishiken-ui": {
+      "command": "npx",
+      "args": ["nishiken-ui-mcp-server"]
+    }
+  }
+}
 ```
-✅ MCPサーバー基本動作
-✅ ComponentReader  
-✅ TailwindTokenReader
-🎯 成功率: 3/3 (100%)
-```
 
-## Cursor での設定
-
-### 設定ファイルの作成
-
-`~/.cursor/mcp.json` ファイルを作成または編集して、以下の設定を追加してください：
+### Option 3: Local Development Setup
 
 ```json
 {
@@ -54,204 +62,169 @@ npm run test
 }
 ```
 
-**重要**: `/path/to/nishiken-ui/` の部分は、実際のプロジェクトパスに置き換えてください。
+## Team Setup Guide
 
-### 設定手順
-
-1. **MCPサーバーをビルド**
+1. **Install globally** on each team member's machine:
    ```bash
-   cd design-system-mcp
-   npm run build
+   npm install -g nishiken-ui-mcp-server
    ```
 
-2. **Cursor設定ディレクトリの確認**
+2. **Configure Claude Code** with the global command setting shown above.
+
+3. **Start using** nishiken-ui components directly in Claude Code conversations.
+
+4. **Automatic updates**: When nishiken-ui is updated, team members can run:
    ```bash
-   mkdir -p ~/.cursor
+   npm update -g nishiken-ui-mcp-server
    ```
 
-3. **MCP設定ファイルの編集**
+## Available Tools
+
+### `search_components`
+Search for components in the nishiken-ui design system.
+
+**Parameters:**
+- `query` (string): Search keyword
+- `category` (string, optional): Component category (button, input, card, typography, label)
+
+**Usage Examples:**
+```
+"Search for Button components"
+"Show all input category components"
+```
+
+### `get_component_code`
+Get the source code for a specific component.
+
+**Parameters:**
+- `componentName` (string): Component name
+- `includeStories` (boolean): Include Storybook stories
+- `includeTypes` (boolean): Include type definitions
+- `includeIndex` (boolean): Include index file
+
+**Usage Examples:**
+```
+"Get Button component code with stories"
+"Show Card component implementation"
+```
+
+### `get_design_tokens`
+Retrieve design tokens from the design system.
+
+**Parameters:**
+- `category` (string, optional): Token category (color, spacing, border-radius, typography, shadow, animation)
+- `format` (string): Output format (json, css, js)
+
+**Usage Examples:**
+```
+"Get color tokens in CSS format"
+"Show all design tokens as JavaScript"
+```
+
+### `apply_theme_setup`
+Apply theme configuration to a project.
+
+**Parameters:**
+- `targetPath` (string): Target project path
+- `framework` (string): Framework (react, next, vite)
+- `typescript` (boolean): Use TypeScript
+- `setupTailwind` (boolean): Setup Tailwind CSS v4
+
+### `integrate_components`
+Integrate components into a project.
+
+**Parameters:**
+- `components` (array): Component names to integrate
+- `targetPath` (string): Target project path
+- `framework` (string): Framework (react, next, vite)
+- `setupStorybook` (boolean): Include Storybook stories
+
+## Resources
+
+- `nishiken-ui://components/catalog` - Complete component catalog
+- `nishiken-ui://design-tokens/colors` - Color design tokens
+
+## Troubleshooting
+
+### MCP Server Not Recognized
+
+1. **Verify Installation**
    ```bash
-   # 新規作成の場合
-   cat > ~/.cursor/mcp.json << 'EOF'
-   {
-     "mcpServers": {
-       "nishiken-ui": {
-         "command": "node",
-         "args": ["/Users/YOUR_USERNAME/path/to/nishiken-ui/design-system-mcp/dist/server.js"],
-         "env": {}
-       }
-     }
-   }
-   EOF
+   # Check if globally installed
+   npm list -g nishiken-ui-mcp-server
+   
+   # Reinstall if needed
+   npm install -g nishiken-ui-mcp-server
    ```
 
-   既存の設定がある場合は、`mcpServers` オブジェクト内に `nishiken-ui` の設定を追加してください。
-
-4. **Cursorを再起動**
-
-5. **動作確認**
-   - Cursorでプロジェクトを開く
-   - Composer (`Cmd+I` または `Ctrl+I`) を開く
-   - 「nishiken-uiのButtonコンポーネントを検索して」と入力
-   - MCPサーバーからの応答があれば成功
-
-## 使用可能なツール
-
-### 1. search_components
-コンポーネントを検索します。
-
-**パラメータ:**
-- `query` (string, optional): 検索キーワード
-- `category` (string, optional): コンポーネントカテゴリ (`button`, `input`, `card`, `typography`, `label`)
-
-**使用例:**
-```
-"Buttonコンポーネントを検索して"
-"inputカテゴリのコンポーネントを全て見せて"
-```
-
-### 2. get_component_code
-指定したコンポーネントの完全なコードを取得します。
-
-**パラメータ:**
-- `componentName` (string, required): コンポーネント名
-- `includeStories` (boolean, optional): Storybookストーリーを含める
-- `includeTypes` (boolean, optional): 型定義ファイルを含める
-- `includeIndex` (boolean, optional): index.tsファイルを含める
-
-**使用例:**
-```
-"Buttonコンポーネントのコードをストーリーも含めて取得して"
-"Cardコンポーネントの実装コードを見せて"
-```
-
-### 3. get_design_tokens
-デザイントークンを取得します。
-
-**パラメータ:**
-- `category` (string, optional): トークンカテゴリ (`color`, `spacing`, `border-radius`, `typography`, `shadow`, `animation`)
-- `format` (string, optional): 出力形式 (`json`, `css`, `js`)
-
-**使用例:**
-```
-"カラートークンをCSS形式で取得して"
-"全てのデザイントークンをJavaScript形式で出力して"
-```
-
-### 4. apply_theme_setup
-プロジェクトにテーマ設定を適用します。
-
-**パラメータ:**
-- `targetPath` (string, required): 対象プロジェクトのパス
-- `framework` (string, optional): フレームワーク (`react`, `next`, `vite`)
-- `typescript` (boolean, optional): TypeScript使用
-- `setupTailwind` (boolean, optional): Tailwind CSS v4をセットアップ
-
-### 5. integrate_components
-コンポーネントをプロジェクトに統合します。
-
-**パラメータ:**
-- `components` (array, required): 統合するコンポーネント名の配列
-- `targetPath` (string, required): 対象プロジェクトのパス
-- `framework` (string, optional): フレームワーク (`react`, `next`, `vite`)
-- `setupStorybook` (boolean, optional): Storybookストーリーを含める
-
-## トラブルシューティング
-
-### MCPサーバーが認識されない場合
-
-1. **パスの確認**
+2. **Check Command**
    ```bash
-   # サーバーファイルが存在するか確認
-   ls -la /path/to/nishiken-ui/design-system-mcp/dist/server.js
+   # Test if command is available
+   which nishiken-ui-mcp
+   
+   # Or try running directly
+   nishiken-ui-mcp
    ```
 
-2. **ビルドの再実行**
-   ```bash
-   cd design-system-mcp
-   npm run build
-   ```
+3. **Restart Claude Code**
+   - Completely quit Claude Code
+   - Restart the application
+   - Try using the MCP server again
 
-3. **設定ファイルの構文確認**
-   ```bash
-   # JSON構文をチェック
-   cat ~/.cursor/mcp.json | jq .
-   ```
+### Testing the Server
 
-4. **Cursorの完全再起動**
-   - Cursorを完全に終了
-   - macOSの場合: `Cmd+Q`でアプリケーションを終了
-   - 再度Cursorを起動
-
-### 動作確認方法
-
-Composerで以下のコマンドを試してください：
+Try these commands in Claude Code:
 
 ```
-# 基本的な検索
-"nishiken-uiのコンポーネント一覧を表示して"
-
-# 特定のコンポーネント取得
-"Buttonコンポーネントのコードを取得して"
-
-# デザイントークン取得
-"カラートークンを表示して"
+"Search for nishiken-ui components"
+"Get Button component code"
+"Show color design tokens"
 ```
 
-### ログの確認
+### Local Development Testing
 
-MCPサーバーのデバッグ情報が必要な場合：
+For debugging during development:
 
 ```bash
-# 直接サーバーを起動してテスト
 cd design-system-mcp
-node dist/server.js
+npm run build
+npm run start
 ```
 
-## Claude Desktop での設定
+## Development
 
-Claude Desktopでも同様に使用できます。`~/Documents/Claude/claude_desktop_config.json` に以下を追加：
+### Architecture
 
-```json
-{
-  "mcpServers": {
-    "nishiken-ui": {
-      "command": "node",
-      "args": ["/path/to/nishiken-ui/design-system-mcp/dist/server.js"]
-    }
-  }
-}
-```
+- **ComponentReader**: Analyzes component files and extracts metadata
+- **TailwindTokenReader**: Extracts design tokens from Tailwind CSS configuration
+- **IntegrationManager**: Handles project integration processes
 
-## 開発者向け情報
+### Adding New Tools
 
-### アーキテクチャ
+To add new functionality:
 
-- **ComponentReader**: コンポーネントファイルの解析とメタデータ抽出
-- **TailwindTokenReader**: Tailwind CSS設定からデザイントークンを抽出
-- **IntegrationManager**: プロジェクトへの統合処理
+1. Add tool definition to `ListToolsRequestSchema` handler in `src/server.ts`
+2. Add processing logic to `CallToolRequestSchema` handler
+3. Create utility classes as needed
 
-### 拡張方法
-
-新しいツールを追加する場合：
-
-1. `src/server.ts` の `ListToolsRequestSchema` ハンドラーに新しいツール定義を追加
-2. `CallToolRequestSchema` ハンドラーに処理ロジックを追加
-3. 必要に応じてユーティリティクラスを作成
-
-### テスト
+### Testing
 
 ```bash
-# 全体テスト
+# Full test suite
 npm run test
 
-# 開発モード（ファイル監視）
+# Development mode (watch files)
 npm run dev
 
-# 型チェック
+# Type checking
 npm run typecheck
 ```
 
-## ライセンス
+## Requirements
 
-MIT License
+- Node.js 18 or higher
+- nishiken-ui package (automatically installed as dependency)
+
+## License
+
+MIT - See [LICENSE](../LICENSE) file for details.
