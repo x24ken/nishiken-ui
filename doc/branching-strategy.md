@@ -59,6 +59,20 @@ git push origin feature/new-date-picker
 # PRをnextブランチへ作成
 ```
 
+#### v2開発中のブランチ命名パターン
+
+v2開発中は、featureブランチ名に`v2-`プレフィックスをつけると分かりやすいです：
+
+- `feature/v2-new-button-api` - 新しいButton APIの実装
+- `feature/v2-breaking-theme-system` - 破壊的変更を含むテーマシステム
+- `feature/v2-typescript-5-migration` - TypeScript 5への移行
+
+```bash
+# 推奨される命名例
+git checkout next
+git checkout -b feature/v2-new-button-api
+```
+
 ### 3. Ver1系の修正をVer2系へ反映
 
 ```bash
