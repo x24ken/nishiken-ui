@@ -1,6 +1,6 @@
 {
   "name": "nishiken-ui",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "A design system built with React, TypeScript, and Tailwind CSS",
   "type": "module",
   "main": "./dist/index.js",
